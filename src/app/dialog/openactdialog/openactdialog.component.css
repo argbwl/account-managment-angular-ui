@@ -1,0 +1,36 @@
+.example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+/* .tp-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.tp-container > * {
+    width: 100%;
+} */
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+
+}
+
+/* .mat-divider {
+    border-top-color:white;
+    height: 12px;
+    width: 250px;
+} */
+
+.div-no-color{
+    border-top-color:white;
+    height: 12px;
+    width: 250px;
+}
+
+td:nth-child(n) {
+    border-right: 50px solid transparent;
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}

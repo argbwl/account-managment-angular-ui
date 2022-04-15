@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<mat-sidenav-container>
+    <mat-sidenav mode="side" [(opened)]="opened">
+        <mat-list>
+            <a mat-list-item routerLink="../openact">Open Account</a>
+            <a mat-list-item routerLink="../closeact">Close Account</a>
+            <a mat-list-item routerLink="../viewact">View Account</a>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <button (click)="opened=!opened"><mat-icon>menu_open</mat-icon></button>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
