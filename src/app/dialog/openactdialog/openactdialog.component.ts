@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccoutserviceService } from 'src/app/service/accoutservice.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-openactdialog',
@@ -12,7 +14,18 @@ import { AccoutserviceService } from 'src/app/service/accoutservice.service';
 export class OpenactdialogComponent implements OnInit {
 
   acctTypeList = ["Saving","Current"];
-  genderTypeList = ["Male","Female","Trans"];
+  genderTypeList:Array<string> = ["Male","Female","Trans"];
+  namePrefix = ["Mr.","Ms.","Mrs."];
+  actModel:string="";
+  nmPrefix:string="";
+  selectedStt:string="";
+  fthrInputSelected:boolean=true;
+  hsbndInputSelected:boolean=false;
+  isActRetrieved:boolean=false;
+  sttList:any;
+  ctyList:any;
+
+  //sttList = new Observable<Array<{ name: string; }>>();
 
   openAccountForm !: FormGroup;
 
@@ -38,13 +51,18 @@ export class OpenactdialogComponent implements OnInit {
       gender: [],
       dob:['',Validators.required],
       pob: [],
-      contactNo: []
+      contactNo: [],
+      fatherName : [],
+      husbandName : [],
+      prefix:[],
+      actNum:[]
     })
   }
 
   ngOnInit(): void {
+    console.log(this.loadStateByCountry("India"));
     this.loadAccountForm();
-
+    
   }
 
   openNewAccount(){
@@ -57,14 +75,64 @@ export class OpenactdialogComponent implements OnInit {
                               alert("Account Open Form Submitted");
                               this.openAccountForm.reset();
                               this.dialogRef.close('save');
-                              this.router.navigate(["openAct"],{relativeTo: this.activatedRoute});
+                              this.sttList=[];
+                              this.ctyList=[];
+                              //this.router.navigate(["openAct"],{relativeTo: this.activatedRoute});
                             },
-                            error:()=>{
-                              alert("Account Open Form Failed to Submit, Please Try After some Time")
+                            error:(er)=>{
+                              alert("Account Open Form Failed to Submit, Please Try After some Time");
+                              this.sttList=[];
+                              this.ctyList=[];
+                              console.log(er.error);
                             }
                          })
     }else{
       alert("Form is not valid, Please Check Mandotary fields");
+    }
+  }
+
+  onSelectChange(val:any){
+    console.log("start value "+val);
+    if(val=="Mr."){
+      console.log(val); 
+      this.genderTypeList = ["Male","Trans"];
+      this.fthrInputSelected=true;
+      this.hsbndInputSelected=false;
+      
+    }else if(val=="Mrs."){
+      console.log(val);
+      this.genderTypeList = ["Female","Trans"];
+      this.fthrInputSelected=false;
+      this.hsbndInputSelected=true;
+    }else if(val=="Ms."){
+      console.log(val);
+      this.genderTypeList = ["Female","Trans"];
+      this.fthrInputSelected=true;
+      this.hsbndInputSelected=false;
+    }
+  }
+
+  loadStateByCountry(cntry:string){
+    if(cntry){
+      this.accountService.getStateListByCountry(cntry)
+                          .subscribe(data=> {
+                              this.sttList=data;
+                          },
+                          err =>{
+                            console.log(err);
+                          })
+    }
+  }
+
+  loadCities(state:any){
+    if(state){
+      this.accountService.getCityListByState(state)
+                          .subscribe(data=> {
+                              this.ctyList=data;
+                          },
+                          err =>{
+                            console.log(err);
+                          })
     }
   }
 

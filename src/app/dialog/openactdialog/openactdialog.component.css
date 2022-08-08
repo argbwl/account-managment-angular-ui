@@ -34,3 +34,13 @@ td:nth-child(n) {
     -moz-background-clip: padding;
     background-clip: padding-box;
 }
+
+.mat-divider{
+    border-top-width: 2px;
+    border-top-style: dashed;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}

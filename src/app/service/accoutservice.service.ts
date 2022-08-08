@@ -15,7 +15,8 @@ export class AccoutserviceService {
 
   }
 
-  baseUrl: string = 'http://localhost:6772/';
+  //acccount-validation
+  baseUrl: string = 'http://localhost:6782/';
   
 
   getAccount(): Observable<ApiResponse>{
@@ -31,7 +32,24 @@ export class AccoutserviceService {
   }
 
   addNewAccount(data:any){
+    console.log(data);
     return this.http.post<any>(this.baseUrl+"aic/open-act", data);
+  }
+
+  getAccountListForClose(): Observable<any>{
+    return this.http.get<any>(this.baseUrl+"aic/acc-info-list-for-close");
+  }
+
+  closeAccount(data:string){
+    return this.http.post<string>(this.baseUrl+"aic/close-act", JSON.parse(JSON.stringify(data)));
+  }
+
+  getStateListByCountry(ctry:string): Observable<any>{
+    return this.http.get<any>(this.baseUrl+"wpc/get-State/"+`${ctry}`);
+  }
+
+  getCityListByState(state:string): Observable<any>{
+    return this.http.get<any>(this.baseUrl+"wpc/get-cities/"+`${state}`);
   }
   
 }

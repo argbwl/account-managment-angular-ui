@@ -46,10 +46,14 @@ export class OpenaccountComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      if('save'==`${result}`){
+        this.getAllTodaysAccountList();
+      }
     });
   }
 
   getAllTodaysAccountList(){
+    console.log("loading today opened account");
     this.accountService.getTodaysAccountList()
                        .subscribe({
                          next:(res)=>{

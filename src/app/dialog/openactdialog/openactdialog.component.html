@@ -1,106 +1,145 @@
-<h3 mat-dialog-title>New Account Form</h3>
+<h2 mat-dialog-title [align]="'center'">New Account Form</h2>
 
 
 <div class="example-container">
 
-<form [formGroup]="openAccountForm">
-<mat-radio-group formControlName="acctType" aria-label="Select an option">
-    <mat-label>Account Type </mat-label>
-    <mat-radio-button *ngFor="let act of acctTypeList" [value]="act">
-        {{act}}
-    </mat-radio-button>
-  </mat-radio-group>
-
-<mat-divider class="div-no-color"></mat-divider>
-
-
-<table class="example-full-width" cellspacing="0">
-    <tr>
-        <td>
-            <mat-form-field appearance="outline">
-                <mat-label>First Name</mat-label>
-                <input formControlName="firstName" matInput placeholder="Enter Your First Name" required>
-                <mat-hint></mat-hint>
+    <form [formGroup]="openAccountForm">
+        <mat-list>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <mat-radio-group formControlName="acctType" aria-label="Select an option">
+                    <mat-label>Account Type : </mat-label>
+                    <mat-radio-button *ngFor="let act of acctTypeList" [value]="act">
+                        {{act}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <mat-radio-group formControlName="prefix" aria-label="Select an option" [(ngModel)]="nmPrefix" (ngModelChange)="onSelectChange($event)">
+                    <mat-label>Prefix : </mat-label>
+                    <mat-radio-button *ngFor="let prf of namePrefix" [value]="prf">
+                        {{prf}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+      
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input formControlName="firstName" matInput placeholder="Enter Your First Name" required>
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <input formControlName="middleName" matInput placeholder="Enter Your Middle Name">
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input formControlName="lastName" matInput placeholder="Enter Your Last Name">
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName="gender">
+                            <mat-option *ngFor="let gndr of genderTypeList" [value]="gndr">{{gndr}}</mat-option>
+                        </mat-select>
+                        <mat-hint align="end">select from dropdown arrow ^</mat-hint>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date of Birth</mat-label>
+                        <input formControlName="dob" matInput [matDatepicker]="picker" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-hint>mm/dd/yyyy</mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Place of Birth</mat-label>
+                        <input formControlName="pob" matInput placeholder="Birth Place">
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field hintLabel="Max 12 characters" appearance="outline">
+                        <mat-label>Contact No</mat-label>
+                        <input formControlName="contactNo" matInput #contactNo minlength="10" maxlength="12" placeholder="Mobile No" required>
+                        <mat-hint align="end">{{contactNo.value?.length || 0}}/12</mat-hint>
+                    </mat-form-field>
+                </td>
+                <td *ngIf="hsbndInputSelected">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Husband Name</mat-label>
+                        <input formControlName="husbandName" matInput placeholder="Husband Name">
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+                </td>
+                <td *ngIf="fthrInputSelected">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Father Name</mat-label>
+                        <input formControlName="fatherName" matInput placeholder="Father Name">
+                        <mat-hint></mat-hint>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="state" [(ngModel)]="selectedStt" (ngModelChange)="loadCities($event)">
+                            <mat-option *ngFor="let st of sttList" [value]="st">{{st}}</mat-option>
+                        </mat-select>
+                        <mat-hint align="end">select from dropdown arrow ^</mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="outline">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city">
+                            <mat-option *ngFor="let cty of ctyList" [value]="cty">{{cty}}</mat-option>
+                        </mat-select>
+                        <mat-hint align="end">select from dropdown arrow ^</mat-hint>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-container" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <textarea formControlName="address" matInput placeholder="Ex. 100 Main St"></textarea>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>PIN Code</mat-label>
+                    <input formControlName="pincode" matInput #postalCode maxlength="6" placeholder="Ex. 123456" required>
+                    <mat-hint align="end">{{postalCode.value.length}} / 6</mat-hint>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+        <div *ngIf="isActRetrieved" mat-dialog-actions [align]="'center'">
+            <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Account Number</mat-label>
+            <input formControlName="actNum" matInput>
+            <mat-hint></mat-hint>
             </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field appearance="outline">
-                <mat-label>Middle Name</mat-label>
-                <input formControlName="middleName" matInput placeholder="Enter Your Middle Name">
-                <mat-hint></mat-hint>
-            </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field appearance="outline">
-                <mat-label>Last Name</mat-label>
-                <input formControlName="lastName" matInput placeholder="Enter Your Last Name">
-                <mat-hint></mat-hint>
-            </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field appearance="outline">
-                <mat-label>Gender</mat-label>
-                <mat-select formControlName="gender">
-                  <mat-option *ngFor="let gndr of genderTypeList" [value]="gndr">{{gndr}}</mat-option>
-                </mat-select>
-                <mat-hint align="end">select from dropdown arrow ^</mat-hint>
-              </mat-form-field>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <mat-form-field appearance="outline">
-                <mat-label>Date of Birth</mat-label>
-                <input formControlName="dob" matInput [matDatepicker]="picker" required>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-hint>mm/dd/yyyy</mat-hint>
-              </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field appearance="outline">
-                <mat-label>Place of Birth</mat-label>
-                <input formControlName="pob" matInput placeholder="Birth Place">
-                <mat-hint></mat-hint>
-            </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field hintLabel="Max 12 characters" appearance="outline">
-                <mat-label>Contact No</mat-label>
-                <input formControlName="contactNo" matInput #contactNo maxlength="12" placeholder="Mobile No">
-                <mat-hint align="end">{{contactNo.value?.length || 0}}/12</mat-hint>
-              </mat-form-field>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <mat-form-field class="example-container" appearance="outline">
-                <mat-label>Address</mat-label>
-                <textarea formControlName="address" matInput placeholder="Ex. 100 Main St"></textarea>
-            </mat-form-field>
-        </td>
-        <td>
-                <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>City</mat-label>
-                <input formControlName="city" matInput placeholder="Ex. Hyderabad" required>
-            </mat-form-field>
-        </td>
-            <td>
-                <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>State</mat-label>
-                <input formControlName="state" matInput placeholder="Ex. Telangana" required>
-            </mat-form-field>
-        </td>
-            <td>
-                <mat-form-field class="example-full-width" appearance="outline">
-                <mat-label>PIN Code</mat-label>
-                <input formControlName="pincode" matInput #postalCode maxlength="6" placeholder="Ex. 123456" required>
-                <mat-hint align="end">{{postalCode.value.length}} / 6</mat-hint>
-            </mat-form-field>
-        </td>
-    </tr>
-</table>
-</form>
+        </div>
+    </form>
 </div>
 
 <div mat-dialog-actions [align]="'end'">
