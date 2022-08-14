@@ -6,7 +6,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AccountComponent } from './comp/account/account.component';
 import { NavbarComponent } from './comp/navbar/navbar.component';
-import { RouterModule } from '@angular/router';
+//import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './comp/footer/footer.component';
@@ -37,6 +37,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSortModule} from '@angular/material/sort';
+import { SystemInfoComponent } from './comp/system/system-info/system-info.component';
+import { SystemEnquiryComponent } from './comp/system/system-enquiry/system-enquiry.component';
+import { SystemDashboardComponent } from './comp/system/system-dashboard/system-dashboard.component';
 
 @NgModule({
    declarations: [
@@ -52,7 +55,10 @@ import {MatSortModule} from '@angular/material/sort';
       OpenaccountComponent,
       CloseaccountComponent,
       ViewaccountComponent,
-      OpenactdialogComponent
+      OpenactdialogComponent,
+      SystemInfoComponent,
+      SystemEnquiryComponent,
+      SystemDashboardComponent
    ],
    imports: [
       BrowserModule,
@@ -80,16 +86,16 @@ import {MatSortModule} from '@angular/material/sort';
       MatNativeDateModule,
       MatDatepickerModule,
       MatSortModule,
-      RouterModule.forRoot([
-        { path: '', pathMatch: 'full', redirectTo: 'navbar'},
-        { path: 'home', component: HomeComponent },
-        { path: 'login', component: UserloginComponent},
-        { path: 'app-mainpage', component: MainpageComponent},
-        { path: 'navbar', component: NavbarComponent},
-        { path: 'act', component: AccountComponent},
-        { path: "openAct", component: OpenaccountComponent},
-        { path: "footer", component: FooterComponent}
-      ])
+      // RouterModule.forRoot([
+      //   { path: '', pathMatch: 'full', redirectTo: 'navbar'},
+      //   { path: 'home', component: HomeComponent },
+      //   { path: 'login', component: UserloginComponent},
+      //   { path: 'app-mainpage', component: MainpageComponent},
+      //   { path: 'navbar', component: NavbarComponent},
+      //   { path: 'act', component: AccountComponent},
+      //   { path: "openAct", component: OpenaccountComponent},
+      //   { path: "footer", component: FooterComponent}
+      // ])
    ],
    providers: [],
    bootstrap: [AppComponent]

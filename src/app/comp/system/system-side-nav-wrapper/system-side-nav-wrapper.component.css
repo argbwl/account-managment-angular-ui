@@ -1,0 +1,30 @@
+mat-sidenav-container {
+    height: 94.5%;
+}
+
+.menu-item {
+margin-left: 8px;
+}
+
+.chevron-button {
+transition: 300ms ease-in-out;
+transform: rotate(0deg);
+}
+
+.chevron-button.rotated {
+transform: rotate(180deg);
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(80, 37, 150);
+    color: white;
+    text-align: center;
+}
