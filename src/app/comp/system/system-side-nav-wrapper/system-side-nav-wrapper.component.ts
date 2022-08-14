@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-system-side-nav-wrapper',
@@ -9,10 +10,17 @@ export class SystemSideNavWrapperComponent implements OnInit {
 
   isExpanded: boolean = false;
   dateTime: Date;
-  constructor() { }
+
+
+
+  constructor(private routeA : ActivatedRoute, 
+              private routerC : Router) {
+
+  }
 
   ngOnInit(): void {
-    this.dateTime = new Date()
+    this.dateTime = new Date();
+    this.routerC.navigate(['system/dashboard-sidenav'])
   }
 
 }
