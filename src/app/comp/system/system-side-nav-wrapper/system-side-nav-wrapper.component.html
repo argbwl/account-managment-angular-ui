@@ -1,48 +1,47 @@
 <mat-sidenav-container autosize>
-    <mat-sidenav #sidenav mode="side" opened="isExpanded">
-      <mat-nav-list>
-  
-        <mat-list-item (click)="isExpanded = !isExpanded">
-          <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: isExpanded }">chevron_right
-          </mat-icon>
-        </mat-list-item>
-  
-        <mat-list-item [routerLink]="'dashboard-sidenav'">
-          <mat-icon mat-list-icon>dashboard</mat-icon>
-          <span *ngIf="isExpanded" class="menu-item">Dashboard</span>
-        </mat-list-item>
-  
-        <mat-list-item [routerLink]="'info-sidenav'">
-          <mat-icon mat-list-icon>info</mat-icon>
-          <span *ngIf="isExpanded" class="menu-item">Info</span>
-        </mat-list-item>
-  
-        <mat-list-item [routerLink]="'enquiry-sidenav'">
-          <mat-icon mat-list-icon>description</mat-icon>
-          <span *ngIf="isExpanded" class="menu-item">Enquiry</span>
-        </mat-list-item>
-  
-      </mat-nav-list>
-    </mat-sidenav>
-     
-    <!-- Content - rendered Content for the current router path into the <router-outlet>, e.g. /dashboard or /info-->
-    <mat-sidenav-content>
-        <mat-toolbar color="primary">
-            <span>Open Account Status</span>
-            <span class="example-spacer"></span>
-            <button  mat-raised-button color="primary" routerLink="../act">
-                <mat-icon>arrow_circle_left</mat-icon>
-            </button>
-          </mat-toolbar>
-      <router-outlet></router-outlet>
-      <div class="footer">
-        <footer>
-          All Copy Right Reserverd [2019-2023] <br>
-          {{dateTime}}
-        </footer>
-      </div>
-    </mat-sidenav-content>
+  <mat-sidenav #sidenav mode="side" opened="isExpanded">
+    <mat-nav-list>
+
+      <mat-list-item (click)="isExpanded = !isExpanded">
+        <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: isExpanded }">chevron_right
+        </mat-icon>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'dashboard-sidenav'">
+        <mat-icon mat-list-icon>dashboard</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Dashboard</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'info-sidenav'">
+        <mat-icon mat-list-icon>info</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Info</span>
+      </mat-list-item>
+
+      <mat-list-item [routerLink]="'enquiry-sidenav'">
+        <mat-icon mat-list-icon>description</mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Enquiry</span>
+      </mat-list-item>
+
+    </mat-nav-list>
+  </mat-sidenav>
     
-  </mat-sidenav-container>
+  <!-- Content - rendered Content for the current router path into the <router-outlet>, e.g. /dashboard or /info-->
+  <mat-sidenav-content>
+      <!-- <mat-toolbar color="primary">
+          <span>Open Account Status</span>
+          <span class="example-spacer"></span>
+          <button  mat-raised-button color="primary" routerLink="../navbar">
+              <mat-icon>arrow_circle_left</mat-icon>
+          </button>
+        </mat-toolbar> -->
+    <router-outlet></router-outlet>
+    <div class="footer">
+      <footer>
+        All Copy Right Reserverd [2019-2023] <br>
+        {{dateTime}}
+      </footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
   

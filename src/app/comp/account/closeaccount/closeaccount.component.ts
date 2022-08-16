@@ -19,6 +19,8 @@ export class CloseaccountComponent implements OnInit {
   // accountList : any;
   displayedColumns: string[] = ['id', 'accName', 'accNum', 'accStatus','closingSts'];
 
+  dateTime: Date;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -34,6 +36,7 @@ export class CloseaccountComponent implements OnInit {
   
   ngOnInit(): void {
     this.getAllAccountListForClose();
+    this.dateTime = new Date();
   }
 
   getAllAccountListForClose(){

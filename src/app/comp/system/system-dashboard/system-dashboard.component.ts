@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-system-dashboard',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SystemDashboardComponent implements OnInit {
 
-  constructor() { }
+  dateTime: Date;
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
+    this.dateTime = new Date()
+  }
+
+  routeNavbar(){
+    this.router.navigate(['navbar']);
   }
 
 }

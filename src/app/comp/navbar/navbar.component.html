@@ -1,8 +1,14 @@
 <mat-toolbar color="primary" class="mat-elevation-z12">
-   <span><a mat-button routerLink="../navbar"><mat-icon>home</mat-icon></a></span>
+   <span><a mat-button (click)="routingHome()"><mat-icon>home</mat-icon></a></span>
    <div class="spacer"></div>
-   <a mat-button routerLink="../account">Account</a>
-   <a mat-button routerLink="../validator" >Validator</a>
-   <a mat-button routerLink="../system">System</a>
+   <a mat-button (click)="routeAccount()">Account</a>
+   <a mat-button (click)="routeValidator()">Validator</a>
+   <a mat-button (click)="routeSystem()">System</a>
+   <a mat-button (click)="routeLogout()">Logout</a>
 </mat-toolbar>
+
+<!-- <div class="center">
+   <h1>Account Managment System</h1>
+</div> -->
+
 <app-footer></app-footer>

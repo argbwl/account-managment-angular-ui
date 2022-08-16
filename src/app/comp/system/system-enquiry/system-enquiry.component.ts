@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-system-enquiry',
@@ -8,10 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class SystemEnquiryComponent implements OnInit {
 
   dateTime: Date;
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
     this.dateTime = new Date()
+  }
+
+  routeNavbar(){
+    this.router.navigate(['navbar']);
   }
 
 }

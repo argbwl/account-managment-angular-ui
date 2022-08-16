@@ -1,0 +1,34 @@
+<mat-sidenav-container autosize>
+    <mat-sidenav #sidenav mode="side" opened="isExpanded">
+      <mat-nav-list>
+  
+        <mat-list-item (click)="isExpanded = !isExpanded">
+          <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: isExpanded }">chevron_right
+          </mat-icon>
+        </mat-list-item>
+  
+        <mat-list-item [routerLink]="'open-act-sidenav'">
+          <mat-icon mat-list-icon>create</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">Open Account</span>
+        </mat-list-item>
+  
+        <mat-list-item [routerLink]="'close-act-sidenav'">
+          <mat-icon mat-list-icon>close</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">Close Account</span>
+        </mat-list-item>
+  
+        <mat-list-item [routerLink]="'view-act-sidenav'">
+          <mat-icon mat-list-icon>pageview</mat-icon>
+          <span *ngIf="isExpanded" class="menu-item">View Account</span>
+        </mat-list-item>
+  
+      </mat-nav-list>
+    </mat-sidenav>
+      
+    <!-- Content - rendered Content for the current router path into the <router-outlet>, e.g. /dashboard or /info-->
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
+    

@@ -17,3 +17,7 @@ table {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}

@@ -1,6 +1,17 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar> -->
 
-<h1 style="text-align: center; color: darkblue;">Closing Account Page</h1>
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Closing Account Status</span>
+  <span class="example-spacer"></span>
+  <button  mat-raised-button color="primary" routerLink="../../navbar">
+      <mat-icon>arrow_circle_left</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- <h1 style="text-align: center; color: darkblue;">Closing Account Page</h1> -->
 
 <div class="container">
     <div style="margin-top: 10px;">
@@ -48,8 +59,6 @@
       <mat-paginator [pageSizeOptions]="[5,10,15]" area-label="Select Pages for Account"></mat-paginator>
     </div>
   </div>
-
-
 
 
 

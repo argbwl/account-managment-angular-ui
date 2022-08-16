@@ -1,7 +1,18 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar> -->
+
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>View Account Info</span>
+  <span class="example-spacer"></span>
+  <button  mat-raised-button color="primary" routerLink="../../navbar">
+      <mat-icon>arrow_circle_left</mat-icon>
+  </button>
+</mat-toolbar>
 
 
-<h1 style="text-align: center; color: darkblue;">Account Details</h1>
+<!-- <h1 style="text-align: center; color: darkblue;">Account Details</h1> -->
 
 <div class="container">
   <div style="margin-top: 10px;">
@@ -50,3 +61,4 @@
     </table>
   </div>
 </div>
+<app-footer></app-footer>
