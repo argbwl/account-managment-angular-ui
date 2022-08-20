@@ -5,6 +5,7 @@
       <mat-list-item (click)="isExpanded = !isExpanded">
         <mat-icon mat-list-icon class="chevron-button" [ngClass]="{ rotated: isExpanded }">chevron_right
         </mat-icon>
+        <span *ngIf="isExpanded" class="menu-item">Options</span>
       </mat-list-item>
 
       <mat-list-item [routerLink]="'dashboard-sidenav'">
@@ -35,12 +36,12 @@
           </button>
         </mat-toolbar> -->
     <router-outlet></router-outlet>
-    <div class="footer">
+    <!-- <div class="footer">
       <footer>
         All Copy Right Reserverd [2019-2023] <br>
         {{dateTime}}
       </footer>
-    </div>
+    </div> -->
   </mat-sidenav-content>
 </mat-sidenav-container>
 

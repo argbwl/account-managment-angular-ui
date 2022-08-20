@@ -51,6 +51,10 @@ export class AccoutserviceService {
   getCityListByState(state:string): Observable<any>{
     return this.http.get<any>(this.baseUrl+"wpc/get-cities/"+`${state}`);
   }
+
+  verifyActByContactNo(cntctNo:string): Observable<any>{
+    return this.http.get<any>(this.baseUrl+"aic/verify-mo-act/"+`${cntctNo}`);
+  }
   
 }
 

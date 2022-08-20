@@ -1,9 +1,9 @@
 mat-sidenav-container {
-    height: 94.5%;
+    height: 100%;
 }
 
 .menu-item {
-    margin-left: 8px;
+    margin-left: 6px;
 }
 
 .chevron-button {
@@ -12,19 +12,19 @@ mat-sidenav-container {
 }
 
 .chevron-button.rotated {
-    transform: rotate(180deg);
+    transform: rotate(180deg);;
 }
 
 .example-spacer {
     flex: 1 1 auto;
 }
 
-.footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: rgb(80, 37, 150);
-    color: white;
-    text-align: center;
+
+.mat-list-item{
+    /* background-color: bisque; */
+    color: brown;
 }
+
+/* .mat-nav-list{
+    background-color: aqua;
+} */ 

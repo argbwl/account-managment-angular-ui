@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   templateUrl: './openactdialog.component.html',
   styleUrls: ['./openactdialog.component.css']
 })
-export class OpenactdialogComponent implements OnInit {
+export class OpenactdialogComponent implements OnInit, AfterContentChecked {
 
   acctTypeList = ["Saving","Current"];
   genderTypeList:Array<string> = ["Male","Female","Trans"];
@@ -24,6 +24,11 @@ export class OpenactdialogComponent implements OnInit {
   isActRetrieved:boolean=false;
   sttList:any;
   ctyList:any;
+  serverRes:any;
+  formSubmitionInProgress:boolean;
+  isActVerifyInProgress:boolean;
+  spanMessage:string="";
+  cntctNo:string="";
 
   //sttList = new Observable<Array<{ name: string; }>>();
 
@@ -36,6 +41,17 @@ export class OpenactdialogComponent implements OnInit {
     private router : Router,
     private activatedRoute : ActivatedRoute) {
 
+  }
+
+  ngOnInit(): void {
+    this.loadStateByCountry("India");
+    this.formSubmitionInProgress=false;
+    this.loadAccountForm();
+    this.cntctNo="";
+  }
+
+  ngAfterContentChecked(): void {
+    /*console.log("ngAfterContentChecked");*/
   }
 
   loadAccountForm(){
@@ -56,38 +72,44 @@ export class OpenactdialogComponent implements OnInit {
       husbandName : [],
       prefix:[],
       actNum:[]
-    })
-  }
-
-  ngOnInit(): void {
-    console.log(this.loadStateByCountry("India"));
-    this.loadAccountForm();
-    
+    });
   }
 
   openNewAccount(){
+    this.formSubmitionInProgress=true;
+    this.spanMessage="Account opening is in progress..."
     console.log(this.openAccountForm.value);
     if(this.openAccountForm.valid){
       console.log("Form is valid");
+      this.openAccountForm.disable();
       this.accountService.addNewAccount(this.openAccountForm.value)
                          .subscribe({
                             next:(res)=>{
-                              alert("Account Open Form Submitted");
                               this.openAccountForm.reset();
                               this.dialogRef.close('save');
+                              this.formSubmitionInProgress=false;
                               this.sttList=[];
                               this.ctyList=[];
                               //this.router.navigate(["openAct"],{relativeTo: this.activatedRoute});
+                              console.log("Response from server for Account opening >> "+res.accNo);
+                              this.serverRes=res;
+                              console.log(this.serverRes);
+                              alert("Account Open Form Submitted,\nAccount No: "+res.accNo);
+                              
                             },
                             error:(er)=>{
                               alert("Account Open Form Failed to Submit, Please Try After some Time");
-                              this.sttList=[];
-                              this.ctyList=[];
+                              this.spanMessage="Account Open Form failed to submit, Please try again in some times";
+                              // this.sttList=[];
+                              // this.ctyList=[];
+                              this.formSubmitionInProgress=false;
+                              this.openAccountForm.enable();
                               console.log(er.error);
                             }
                          })
     }else{
-      alert("Form is not valid, Please Check Mandotary fields");
+      //alert("Form is not valid, Please Check Mandotary fields");
+      this.spanMessage="Form is not valid, Please Check Mandotary fields"
     }
   }
 
@@ -134,6 +156,35 @@ export class OpenactdialogComponent implements OnInit {
                             console.log(err);
                           })
     }
+  }
+
+  verifyAccount(contactNo:any){
+    this.spanMessage="";
+    if(contactNo.value && contactNo.value===this.cntctNo && this.cntctNo.length>=10){
+      console.log("Contact No and firstName to verify Act : "+this.cntctNo);
+      this.isActVerifyInProgress=true;
+      this.openAccountForm.disable();
+      this.spanMessage="Verifing account no based on contact no...";
+      this.accountService.verifyActByContactNo(contactNo.value)
+                          .subscribe(data=> {
+                              this.isActVerifyInProgress=false;
+                              console.log("data response "+data);
+                              this.spanMessage="Verified!";
+                              if(false===data){
+                                this.spanMessage="[SUCCESS] Verified! No account is registered with contact no "+contactNo.value;
+                              }else{
+                                this.cntctNo="";
+                                this.spanMessage="[FAIL] Verified! Please provide new mobile no,an account is registered already with contact no "+contactNo.value;
+                              }
+                              this.openAccountForm.enable();
+                          },
+                          err =>{
+                            console.log(err);
+                            this.isActVerifyInProgress=false;
+                            this.openAccountForm.enable();
+                          })
+    }
+    
   }
 
 }

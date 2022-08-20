@@ -1,16 +1,25 @@
 <mat-toolbar color="primary">
-    <span>System Enquiry</span>
-    <span class="example-spacer"></span>
-    <button  mat-raised-button color="primary" (click)="routeNavbar()">
-        <mat-icon>arrow_circle_left</mat-icon>
-    </button>
+    <div class="alignc">Dashboard</div>
+   <div class="spacer"></div>
+   <a mat-button (click)="routeAccount()">Account</a>
+   <a mat-button (click)="routeValidator()">Validator</a>
+   <a mat-button (click)="routeSystem()">System</a>
+   <a mat-button (click)="routeLogout()">Logout</a>
   </mat-toolbar>
 
-<div class="footer">
+<!-- <div class="footer">
     <footer>
         All Copy Right Reserverd [2019-2023] <br>
         {{dateTime}}
     </footer>
-</div>
+</div> -->
+
+<!-- <div class="footer">
+    <footer>
+      All Copy Right Reserverd [2019-2023] <br>
+      {{dateTime}}
+    </footer>
+  </div> -->
+<app-footer></app-footer>
 
 <h1>This page is made for system dashboard</h1>

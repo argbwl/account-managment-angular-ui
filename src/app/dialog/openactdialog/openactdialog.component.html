@@ -79,9 +79,18 @@
                 <td>
                     <mat-form-field hintLabel="Max 12 characters" appearance="outline">
                         <mat-label>Contact No</mat-label>
-                        <input formControlName="contactNo" matInput #contactNo minlength="10" maxlength="12" placeholder="Mobile No" required>
+                        <input formControlName="contactNo"
+                                 matInput #contactNo 
+                                 minlength="10" 
+                                 maxlength="12" 
+                                 placeholder="Mobile No" 
+                                 required
+                                 [(ngModel)]="cntctNo"
+                                 (blur)="verifyAccount(contactNo)"
+                        >
                         <mat-hint align="end">{{contactNo.value?.length || 0}}/12</mat-hint>
                     </mat-form-field>
+                    <mat-progress-bar *ngIf="isActVerifyInProgress" mode="indeterminate"></mat-progress-bar>
                 </td>
                 <td *ngIf="hsbndInputSelected">
                     <mat-form-field appearance="outline">
@@ -142,9 +151,11 @@
     </form>
 </div>
 
+<mat-progress-bar *ngIf="formSubmitionInProgress" mode="indeterminate"></mat-progress-bar>
+<span style="color:blue;">{{spanMessage}}</span>
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-    <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="openNewAccount()">Open Account</button>
+    <button [disabled]="!openAccountForm.valid" style="margin-left: 8px;" mat-raised-button color="primary" (click)="openNewAccount()">Open Account</button>
 </div>
 
 <!-- <app-footer></app-footer> -->

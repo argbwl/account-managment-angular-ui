@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   }
 
   routingHome(){
-    this.routerC.navigate(['navbar']);
+    this.routerC.navigate(['system/dashboard-sidenav']);
   }
 
   routeAccount(){

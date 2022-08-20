@@ -19,4 +19,24 @@ export class SystemDashboardComponent implements OnInit {
     this.router.navigate(['navbar']);
   }
 
+  routeHome(){
+    this.router.navigate(['system/dashboard-sidenav']);
+  }
+
+  routeAccount(){
+    this.router.navigate(['account']);
+  }
+
+  routeValidator(){
+    this.router.navigate(['validator']);
+  }
+
+  routeSystem(){
+    this.router.navigate(['system/dashboard-sidenav']);
+  }
+
+  routeLogout(){
+    this.router.navigate(['home']);
+  }
+
 }

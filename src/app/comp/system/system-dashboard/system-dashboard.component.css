@@ -11,3 +11,28 @@
 .example-spacer {
     flex: 1 1 auto;
 }
+
+.navbar {
+    justify-content: space-between;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+.center {
+    display: flex;
+    background-color: whitesmoke;
+    justify-content: center;
+    height: 88vh;
+  }
+  
+  
+  .center h1{
+    align-self: center;
+  }
+
+.alignc{
+    align-self: center;
+}

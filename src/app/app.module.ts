@@ -41,6 +41,7 @@ import { SystemInfoComponent } from './comp/system/system-info/system-info.compo
 import { SystemEnquiryComponent } from './comp/system/system-enquiry/system-enquiry.component';
 import { SystemDashboardComponent } from './comp/system/system-dashboard/system-dashboard.component';
 //import { AccountSideNavWrapperComponent } from './comp/account/account-side-nav-wrapper/account-side-nav-wrapper.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
    declarations: [
@@ -87,6 +88,7 @@ import { SystemDashboardComponent } from './comp/system/system-dashboard/system-
       MatNativeDateModule,
       MatDatepickerModule,
       MatSortModule,
+      MatProgressBarModule
       // RouterModule.forRoot([
       //   { path: '', pathMatch: 'full', redirectTo: 'navbar'},
       //   { path: 'home', component: HomeComponent },

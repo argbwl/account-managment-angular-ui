@@ -31,7 +31,7 @@ export class UserloginComponent implements OnInit {
       console.log(data.uname);
       if (data.uname=="meadmin" && data.passwd=="admin123") {
          //alert("Login Successful");
-         this.router.navigate(['account'])
+         this.router.navigate(['system'])
       } else {
          alert("Invalid Login");
          return false;
