@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatSort } from '@angular/material/sort';
+import Swal from 'sweetalert2';
 
 
 export interface PeriodicElement {
@@ -79,7 +80,8 @@ export class SystemInfoComponent implements OnInit {
                            this.dataSource.sort = this.sort;
                          },
                          error:(err)=>{
-                           alert("error fetching data");
+                           //alert("error fetching data");
+                           Swal.fire('Server Down!', 'Error Fetching Data!', 'error');
                          }
                        })
   }

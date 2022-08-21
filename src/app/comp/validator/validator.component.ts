@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Account } from 'src/app/model/account.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-validator',
@@ -38,7 +39,8 @@ export class ValidatorComponent implements OnInit {
                            this.dataSource.sort = this.sort;
                          },
                          error:(err)=>{
-                           alert("error fetching data");
+                           //alert("error fetching data");
+                           Swal.fire('Server Down!', 'Error Fetching Data!', 'error');
                          }
                        })
   }

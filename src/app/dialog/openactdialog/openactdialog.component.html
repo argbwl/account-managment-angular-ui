@@ -114,7 +114,7 @@
                         <mat-select formControlName="state" [(ngModel)]="selectedStt" (ngModelChange)="loadCities($event)">
                             <mat-option *ngFor="let st of sttList" [value]="st">{{st}}</mat-option>
                         </mat-select>
-                        <mat-hint align="end">select from dropdown arrow ^</mat-hint>
+                        <mat-hint align="end">select state from dropdown arrow ^</mat-hint>
                     </mat-form-field>
                 </td>
                 <td>
@@ -123,7 +123,7 @@
                         <mat-select formControlName="city">
                             <mat-option *ngFor="let cty of ctyList" [value]="cty">{{cty}}</mat-option>
                         </mat-select>
-                        <mat-hint align="end">select from dropdown arrow ^</mat-hint>
+                        <mat-hint align="end">select city from dropdown arrow ^</mat-hint>
                     </mat-form-field>
                 </td>
                 <td>
@@ -153,7 +153,9 @@
 
 <mat-progress-bar *ngIf="formSubmitionInProgress" mode="indeterminate"></mat-progress-bar>
 <pre>
-<span style="color:blue;">{{spanMessage}}</span>
+<span style="color:blue;">{{spanProcessMessage}}</span>
+<span style="color:green;">{{spanMessage}}</span>
+<span style="color:red;">{{spanErrorMessage}}</span>
 </pre>
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Close</button>

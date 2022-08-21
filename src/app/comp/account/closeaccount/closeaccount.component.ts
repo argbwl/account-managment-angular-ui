@@ -7,12 +7,14 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-closeaccount',
   templateUrl: './closeaccount.component.html',
   styleUrls: ['./closeaccount.component.css']
 })
+
 export class CloseaccountComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
@@ -48,7 +50,8 @@ export class CloseaccountComponent implements OnInit {
                            this.dataSource.sort = this.sort;
                          },
                          error:(err)=>{
-                           alert("error fetching data");
+                           //alert("error fetching data");
+                           Swal.fire('Server Down!', 'Error Fetching Data!', 'error');
                            console.log(err);
                          }
                        })
@@ -63,28 +66,58 @@ export class CloseaccountComponent implements OnInit {
     }
   }  
 
+  // closeAccount1(data:string){
+  //   //alert(data);
+  //   console.log(data);
+  //   if(confirm("Closing Account will take 7 Days to process,\nPlease confirm if need to close account for below account\nAccount Number ["+data+"]")) {
+  //     this.accountService.closeAccount(data)
+  //                        .subscribe({
+  //                           next:(res)=>{
+  //                             alert("Account Closing Submitted for account number :: "+data);
+  //                             this.getAllAccountListForClose();
+  //                           },
+  //                           error:(er)=>{
+  //                             alert("Account Closing Failed, Please Try After some Time");
+  //                             console.log(er.error);
+  //                           }
+  //                        })
+  //   }else{
+  //     alert("Account Closing will not process")
+  //   }
+  // }
+
   closeAccount(data:string){
     //alert(data);
     console.log(data);
-    if(confirm("Closing Account will take 7 Days to process,\nPlease confirm if need to close account for below account\nAccount Number ["+data+"]")) {
-      this.accountService.closeAccount(data)
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Confirm if need to close account Account Number ["+data+"]",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Close this Account'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.accountService.closeAccount(data)
                          .subscribe({
                             next:(res)=>{
-                              alert("Account Closing Submitted for account number :: "+data);
+                              Swal.fire({
+                                title:'Closed!',
+                                text:'Account Closing Submitted for account number :: '+data,
+                                icon:'warning',
+                                footer: 'Closing of Account will take 7 Days to process completely'
+                              })
                               this.getAllAccountListForClose();
                             },
                             error:(er)=>{
-                              alert("Account Closing Failed, Please Try After some Time");
+                              Swal.fire('FAILED','Account Closing Failed, Please Try After some Time','error');
                               console.log(er.error);
                             }
                          })
-    }else{
-      alert("Account Closing will not process")
-    }
-    
-
-    
-   
+      }
+    })
   }
   
 

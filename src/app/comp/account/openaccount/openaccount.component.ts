@@ -9,6 +9,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-openaccount',
@@ -62,7 +63,8 @@ export class OpenaccountComponent implements OnInit {
                            this.dataSource.sort = this.sort;
                          },
                          error:(err)=>{
-                           alert("error fetching data");
+                           //alert("error fetching data");
+                           Swal.fire('Server Down!', 'Error Fetching Data!', 'error');
                          }
                        })
   }

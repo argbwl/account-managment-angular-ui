@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccoutserviceService } from 'src/app/service/accoutservice.service';
 import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
   formSubmitionInProgress:boolean;
   isActVerifyInProgress:boolean;
   spanMessage:string="";
+  spanErrorMessage:string="";
+  spanProcessMessage:string='';
   cntctNo:string="";
 
   //sttList = new Observable<Array<{ name: string; }>>();
@@ -77,7 +80,7 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
 
   openNewAccount(){
     this.formSubmitionInProgress=true;
-    this.spanMessage="Account opening is in progress..."
+    this.setSpanMessage('Account opening is in progress...','process');
     console.log(this.openAccountForm.value);
     if(this.openAccountForm.valid){
       console.log("Form is valid");
@@ -86,6 +89,12 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
                          .subscribe({
                             next:(res)=>{
                               this.openAccountForm.reset();
+                              Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Account Open Form Submitted for Account No: '+res.accNo,
+                                footer: 'Account will be activated within 2 working days'
+                              });
                               this.dialogRef.close('save');
                               this.formSubmitionInProgress=false;
                               this.sttList=[];
@@ -94,12 +103,16 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
                               console.log("Response from server for Account opening >> "+res.accNo);
                               this.serverRes=res;
                               console.log(this.serverRes);
-                              alert("Account Open Form Submitted,\nAccount No: "+res.accNo);
+                              //alert("Account Open Form Submitted,\nAccount No: "+res.accNo);
                               
                             },
                             error:(er)=>{
-                              alert("Account Open Form Failed to Submit, Please Try After some Time");
-                              this.spanMessage="Account Open Form failed to submit, Please try again in some times";
+                              Swal.fire({
+                                icon: 'error',
+                                title: 'ERROR',
+                                text: 'Account Open Form Failed to Submit, Please Try After some Time'
+                              });
+                              this.setSpanMessage('Account Open Form failed to submit, Please try again in some times','error');
                               // this.sttList=[];
                               // this.ctyList=[];
                               this.formSubmitionInProgress=false;
@@ -108,8 +121,7 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
                             }
                          })
     }else{
-      //alert("Form is not valid, Please Check Mandotary fields");
-      this.spanMessage="Form is not valid, Please Check Mandotary fields"
+      this.setSpanMessage('Form is not valid, Please Check Mandotary fields','error');
     }
   }
 
@@ -159,22 +171,35 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
   }
 
   verifyAccount(contactNo:any){
-    this.spanMessage="";
+    this.setSpanMessage(null,null);
     if(contactNo.value && contactNo.value===this.cntctNo && this.cntctNo.length>=10){
       console.log("Contact No and firstName to verify Act : "+this.cntctNo);
       this.isActVerifyInProgress=true;
       this.openAccountForm.disable();
-      this.spanMessage="Verifing account no based on contact no...";
+      this.setSpanMessage('Verifing account no based on contact no...','process');
       this.accountService.verifyActByContactNo(contactNo.value)
                           .subscribe(data=> {
                               this.isActVerifyInProgress=false;
                               console.log("data response "+data);
-                              this.spanMessage="Verified!";
                               if(false===data){
-                                this.spanMessage="[SUCCESS] Verified! No account is registered with contact no "+contactNo.value;
+                                this.setSpanMessage('Verified! No account is registered with contact no '+contactNo.value,'success');
+                                Swal.fire({
+                                  //position: 'top-end',
+                                  icon: 'success',
+                                  title: '[SUCCESS] Verified! No account is registered with contact no '+contactNo.value,
+                                  showConfirmButton: false,
+                                  timer: 2500,
+                                  timerProgressBar: true
+                                })
                               }else{
                                 this.cntctNo="";
-                                this.spanMessage="[FAILED]! Account is already registered with contact no "+contactNo.value;
+                                this.setSpanMessage('Account is already registered with contact no '+contactNo.value,'error')
+                                Swal.fire({
+                                  icon: 'error',
+                                  title: 'FAILED',
+                                  text: 'Account is already registered with contact no '+contactNo.value,
+                                  footer: 'Please provide new contact number'
+                                });
                               }
                               this.openAccountForm.enable();
                           },
@@ -185,6 +210,31 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
                           })
     }
     
+  }
+
+  setSpanMessage(message:string, messageType: string){
+    if(message==='' || message==null){
+      this.spanProcessMessage='';
+      this.spanMessage='';
+      this.spanErrorMessage='';
+    }else{
+      if('error'===messageType.toLowerCase()){
+        message='[ERROR] '+message;
+        this.spanErrorMessage=message;
+        this.spanProcessMessage='';
+        this.spanMessage='';
+      }else if('process'===messageType.toLowerCase()){
+        message='[PROCESS] '+message;
+        this.spanProcessMessage=message;
+        this.spanErrorMessage='';
+        this.spanMessage='';
+      }else{
+        message='[SUCCESS] '+message;
+        this.spanErrorMessage='';
+        this.spanProcessMessage='';
+        this.spanMessage=message;
+      }
+    }
   }
 
 }
