@@ -152,7 +152,9 @@
 </div>
 
 <mat-progress-bar *ngIf="formSubmitionInProgress" mode="indeterminate"></mat-progress-bar>
+<pre>
 <span style="color:blue;">{{spanMessage}}</span>
+</pre>
 <div mat-dialog-actions [align]="'end'">
     <button mat-raised-button color="warn" mat-dialog-close>Close</button>
     <button [disabled]="!openAccountForm.valid" style="margin-left: 8px;" mat-raised-button color="primary" (click)="openNewAccount()">Open Account</button>

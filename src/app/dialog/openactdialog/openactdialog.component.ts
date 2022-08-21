@@ -174,7 +174,7 @@ export class OpenactdialogComponent implements OnInit, AfterContentChecked {
                                 this.spanMessage="[SUCCESS] Verified! No account is registered with contact no "+contactNo.value;
                               }else{
                                 this.cntctNo="";
-                                this.spanMessage="[FAIL] Verified! Please provide new mobile no,an account is registered already with contact no "+contactNo.value;
+                                this.spanMessage="[FAILED]! Account is already registered with contact no "+contactNo.value;
                               }
                               this.openAccountForm.enable();
                           },
